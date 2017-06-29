@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!-- 引入jdbc配置文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:properties/jdbc.properties</value>
+                <!--要是有多个配置文件，只需在这里继续添加即可 -->
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://192.168.1.97:3306/test?serverTimezone=UTC&amp;characterEncoding=utf-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="yuantu123"/>
+    </bean>
+
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+<!--    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        &lt;!&ndash; 自动扫描mapping.xml文件 &ndash;&gt;
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"></property>
+    </bean>-->
+
+        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+            <!--dataSource属性指定要用到的连接池-->
+            <property name="dataSource" ref="dataSource"/>
+            <!--configLocation属性指定mybatis的核心配置文件-->
+            <property name="configLocation" value="classpath:mybatis/config/MyBatisConf.xml"/>
+        </bean>
+
+
+<!--        <bean id="userAccountMaper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            &lt;!&ndash;sqlSessionFactory属性指定要用到的SqlSessionFactory实例&ndash;&gt;
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+            &lt;!&ndash;mapperInterface属性指定映射器接口，用于实现此接口并生成映射器对象&ndash;&gt;
+            <property name="mapperInterface" value="com.auto.mapper.UserAccountMapper"/>
+        </bean>-->
+
+        <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+            <!--sqlSessionFactory属性指定要用到的SqlSessionFactory实例-->
+            <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+            <!--mapperInterface属性指定映射器接口，用于实现此接口并生成映射器对象-->
+            <property name="mapperInterface" value="com.auto.mapper.UserMapper"/>
+        </bean>
+
+        <!-- 配置SqlSessionTemplate -->
+<!--        <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+            <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+        </bean>-->
+
+    <!-- 通过MapperScannerConfigurer进行mapper扫描（建议使用）
+     mapper 批量扫描，从 mapper 包中扫描出 mapper 接口，自动创建代理对象，并在 spring 容器中注册名陈为类名首字母小写。
+     遵循的规范：将 mapper.java 和 mapper.xml 映射文件名陈一致，且在同一个目录
+     就不用使用
+     -->
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.auto.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+    </bean>-->
+
+    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+<!--    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>-->
+
+
+    <!-- 自动扫描注解的bean -->
+    <context:component-scan base-package="com.auto.*" />
+
+
+</beans>

@@ -1,0 +1,12 @@
+com/auto/dao/UserDao.class
+com/auto/domain/UserAccount.class
+com/auto/exceptions/DAOException.class
+com/auto/service/UserAccountService.class
+com/auto/typehandler/MyDateTypeHandler.class
+com/auto/mapper/UserAccountMapper.class
+com/auto/controller/UserController.class
+com/auto/mapper/UserMapper.class
+com/auto/service/impl/UserDaoImpl.class
+com/auto/exceptions/SpringException.class
+com/auto/domain/User.class
+com/auto/typehandler/MyStringArrayTypeHandler.class

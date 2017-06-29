@@ -1,0 +1,12 @@
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/exceptions/SpringException.java
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/service/impl/UserDaoImpl.java
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/mapper/UserAccountMapper.java
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/domain/UserAccount.java
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/service/UserAccountService.java
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/domain/User.java
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/mapper/UserMapper.java
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/controller/UserController.java
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/typehandler/MyStringArrayTypeHandler.java
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/dao/UserDao.java
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/typehandler/MyDateTypeHandler.java
+/mnt/work/workstation/autoacceptance/src/main/java/com.auto/exceptions/DAOException.java
